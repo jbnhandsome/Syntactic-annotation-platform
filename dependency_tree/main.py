@@ -1,11 +1,14 @@
 import model
 import tools
-
+import server
 
 if __name__ == '__main__':
     file_path = "E:/baiduyunxiazai/zx/"
     fila_name = "notMatch.alldata"
     out_path = "dependency_tree/output_image"
+    LABEL_STUDIO_URL = 'http://localhost:8080'
+    API_KEY = '72deb692101d5d12d3388a76580c10b730e864b0'
+    #ls = server.ServerLaunch(LABEL_STUDIO_URL,API_KEY)
     dataset = []
     data = model.Conll_8best_Read(dataset)
     dataset = data.read_mul_file(file_path,fila_name)
