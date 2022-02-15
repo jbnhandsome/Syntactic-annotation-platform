@@ -58,12 +58,7 @@ def create_proj(ls,sen,tasks,n):
     project.import_tasks("dependency_tree\\zuixin.json")
    
 if __name__ == '__main__':
-    # LABEL_STUDIO_URL = 'http://localhost:8080'
-    # #API_KEY = '72deb692101d5d12d3388a76580c10b730e864b0'
-    # API_KEY ='83443f95363aaaa600059c7c41db23164d04eb58'
-    # file_path = "E:/baiduyunxiazai/zx/"
-    # fila_name = "notMatch.alldata"
-    # out_path = "dependency_tree\\output_image"
+   
     with open('dependency_tree\\config.json','r',encoding='gbk')as fp:
             config=json.load(fp)
     print(config)
