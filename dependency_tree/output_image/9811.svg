@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="zh" id="1127d0b432244aca9b63438def2de072-0" class="displacy" width="750" height="237.0" direction="ltr" style="max-width: none; height: 237.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="50">ROOT</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">PU</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="150">不过</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="150">AD</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="250">日后</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="250">NT</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="350">，</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="350">PU</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="450">嘿嘿</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="450">NN</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="550">……</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="550">PU</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="147.0">
+    <tspan class="displacy-word" fill="currentColor" x="650">”</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="650">PU</tspan>
+</text>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-1127d0b432244aca9b63438def2de072-0-0" stroke-width="2px" d="M70,102.0 C70,52.0 145.0,52.0 145.0,102.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-1127d0b432244aca9b63438def2de072-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">root</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M145.0,104.0 L153.0,92.0 137.0,92.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-1127d0b432244aca9b63438def2de072-0-1" stroke-width="2px" d="M170,102.0 C170,52.0 245.0,52.0 245.0,102.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-1127d0b432244aca9b63438def2de072-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cmp</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M245.0,104.0 L253.0,92.0 237.0,92.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-1127d0b432244aca9b63438def2de072-0-2" stroke-width="2px" d="M270,102.0 C270,52.0 345.0,52.0 345.0,102.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-1127d0b432244aca9b63438def2de072-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">punc</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M345.0,104.0 L353.0,92.0 337.0,92.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-1127d0b432244aca9b63438def2de072-0-3" stroke-width="2px" d="M270,102.0 C270,2.0 450.0,2.0 450.0,102.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-1127d0b432244aca9b63438def2de072-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">repet</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M450.0,104.0 L458.0,92.0 442.0,92.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-1127d0b432244aca9b63438def2de072-0-4" stroke-width="2px" d="M470,102.0 C470,52.0 545.0,52.0 545.0,102.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-1127d0b432244aca9b63438def2de072-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">punc</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M545.0,104.0 L553.0,92.0 537.0,92.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-1127d0b432244aca9b63438def2de072-0-5" stroke-width="2px" d="M470,102.0 C470,2.0 650.0,2.0 650.0,102.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-1127d0b432244aca9b63438def2de072-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">punc</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M650.0,104.0 L658.0,92.0 642.0,92.0" fill="currentColor"/>
+</g>
+</svg>

@@ -1,0 +1,8 @@
+{"LABEL_STUDIO_URL" : "http://localhost:8080",
+    "API_KEY" :"83443f95363aaaa600059c7c41db23164d04eb58",
+    "file_path" : "E:/baiduyunxiazai/zx/",
+    "fila_name" : "notMatch.alldata",
+    "out_path" : "dependency_tree\\output_image",
+    "outfile_path":"dependency_tree\\output_file",
+    "n" : 5
+}

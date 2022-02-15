@@ -1,0 +1,7 @@
+Django==3.1.13
+graphviz==0.19.1
+joblib==1.0.1
+label_studio_sdk==0.0.6
+numpy==1.21.5
+requests==2.26.0
+spacy==3.2.1

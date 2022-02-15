@@ -1,3 +1,5 @@
+from email import header
+from joblib import PrintTime
 from numpy import append
 from model import Conll_8best_Read
 from model import Sentence
@@ -35,6 +37,19 @@ def load_data_conll(dataset):
     del(sente[0])
     print(sente[0].sen)
     return sente
+    
+def find_tags(sen):
+    se = set()
+    for i in range(len(sen)):
+        for j in range(len(sen[i].word)):
+            se.add(sen[i].tag[j])
+    return list(se)
+def find_deps(sen):
+    se = set()
+    for i in range(len(sen)):
+        for j in range(len(sen[i].word)):
+            se.add(sen[i].rel[j])
+    return list(se)
 
 def find_sent(sen):
     se = set() #存储所有已经出现了的句子
@@ -75,8 +90,10 @@ def find_sent(sen):
 #生成svg图像 存储到指定位置
 def generate_svg_image(path,svg):
     output_path = Path(path)
-    with output_path.open("w", encoding="utf-8") as fh:
-        fh.write(svg)
+    output_path.open("w", encoding="utf-8").write(svg)
+    #output_path = Path(path)
+    #with output_path.open("w", encoding="utf-8") as fh:
+      # fh.write(svg)
 #生成graphiz类型的dependency_tree树
 def generate_DPtree_graphiz(sen,st,dic,path):
     #sen是所有句子的集合，str是
@@ -104,10 +121,11 @@ def svg2png(svg_path,png_path):
 
 def upload(path):
     url = 'https://sm.ms/api/v2/upload'
-    svg2png(path,path)
+    headers = { "Authorization": "aF5cAgMNnYr3GwFtYb3hSyMOcEjMdghT"}
+    #svg2png(path,path)
     file_obj = open(path,'rb')
     file = {'smfile': file_obj}  # 参数名称必须为smfile
-    data_result = requests.post(url, data=None, files=file)
+    data_result = requests.post(url,  files=file,headers=headers)
     print(type(data_result.json()))
     print(data_result.json())  # 得到json结果
     a= data_result.json()
@@ -121,19 +139,25 @@ def generate_DPtree_spacy(sen,dic,path):
     #sen是所有句子的集合，str是
     #我们需要为每一个句子生成一棵树
     #下面这个字典用来保存每个句子对应的句法树图片的url
-    sen2spacy = {}
+    sen2spacy = []
     data_json = {}
     se = set()
-    for k in range(len(sen[27:28])):
+    for k in range(len(sen[:28])):
         if sen[k].sen not in se:
             se.add(sen[k].sen)
             sen_list = []
-            for i in dic[sen[k].sen]:  
+            pos = 1
+            for i in dic[sen[k].sen]:
+                if pos>5:
+                    break
+                else:
+                    pos = pos + 1
                 head = [None]
                 tag = ['PU']
                 dep = ['']
                 word = ['ROOT']
                 #需要让根节点指向0的位置
+                
                 for j in range(len(sen[i].word)):
                     #print(sen[i].dep[j],sen[i].idx[j])
                     head.append(int(sen[i].dep[j]))
@@ -142,23 +166,125 @@ def generate_DPtree_spacy(sen,dic,path):
                     tag.append(sen[i].tag[j])
                 doc = Doc(nlp.vocab,words=word,tags=tag,deps=dep,heads=head)
                 svg = displacy.render(doc, style='dep', options = {'distance': 100,'collapse_punct':False,'fine_grained':True})
-                print(type(svg)) #这里的输出是none 存在一个bug，忘记有没有解决了，嘶
+                #print("svg",svg) #这里的输出是none 存在一个bug，忘记有没有解决了，嘶
                 #感觉上面的这个bug应该是在ipynb中提前渲染了，所以就没有返回值，在py中不会提前输出，所以就会存储来
-                file = str(k)+str(i)+'27.svg'
+                file = str(k)+str(i)+'.svg'
                 output_path = path +'/'+file
-                print(output_path)
+                # print(output_path)
                 generate_svg_image(output_path,svg)
-                #上传图片到SM.MS图床
-                url = upload(output_path)
-                sen_list.append(url)
-                #sen_list.append(output_path)
-            sen2spacy[sen[k].sen] = sen_list
-    data_json['data'] = sen2spacy
-    json_s = json.dumps(data_json)
-    with open('test_data.json', 'w') as json_file:
+                # #上传图片到SM.MS图床
+                # url = upload(output_path)
+                # sen_list.append(url)
+                #上面的代码我们可以直接注释掉，可以试一下直接渲染前端页面可不可以
+                sen_list.append(output_path)
+            print(sen[k].sen)
+            sen2spacy.append({sen[k].sen:sen_list})
+    #data_json['data'] = sen2spacy
+    json_s = json.dumps(sen2spacy,ensure_ascii=False)
+    with open('dependency_tree\\sentence_test.json', 'w') as json_file:
         json_file.write(json_s)
     return sen2spacy
         
+def generate_DPtree_ls(sen,dic,path):
+    #sen是所有句子的集合，str是
+    #我们需要为每一个句子生成一棵树
+    #下面这个字典用来保存每个句子对应的句法树图片的url
+    sen2spacy = {}
+    data_json = {}
+    se = set()
+    #
+    tags = find_tags(sen)
+    rels = find_deps(sen)
+    tasks = []
+    
+    #遍历所有的句子
+    values = []
+    for k in range(len(sen[0:28])):
+        if sen[k].sen not in se:
+            pre_dic = {}
+            se.add(sen[k].sen)
+            pre_dic['data']={'text':"ROOT"+sen[k].sen}
+            pre_dic["predictions"] = []
+            pos = 1
+            value_sen = []
+            print(k)
+            print()
+            for i in dic[sen[k].sen]:
+                if pos >5:
+                    break
+                #print(len(dic[sen[k].sen]))
+                #print(i)
+                head = [0]
+                tag = ['PU']
+                dep = ['root']
+                word = ['ROOT']
+                id = [0]
+                #需要让根节点指向0的位置
+                for j in range(len(sen[i].word)):
+                    #print(sen[i].dep[j],sen[i].idx[j])
+                    id.append(j+1)
+                    head.append(int(sen[i].dep[j]))
+                    word.append(sen[i].word[j]) 
+                    if sen[i].word[j]=='是':
+                        print(sen[i].tag[j])
+                    dep.append(sen[i].rel[j])#他的依赖关系
+                    if sen[i].tag[j] == 'PU':
+                        tag.append('PUNCT')#存储实体的属性
+                    else:
+                        tag.append(sen[i].tag[j])
+                #每个字是一个value
+                #value:{
+                    #start len(word[:j-1])-1 int
+                    #end   len(word[:j])-1 int 
+                    #text word[j]  string
+                    #labels[tags]
+                #}, id:"",from_name:"tag-i",to_name:"t-i",type:"labels"
+                #realation
+                #{from:"from_id"
+                # to:"head"
+                # direction="right"
+                # labels:dep
+                # }
+                length = 0
+                for j in range(len(id)):
+                    dic_v = {}
+                    #先更新value
+                    dic_v["value"] = {"start":length,"end":length + len(word[j]),"score": 0.70,"text":word[j],"labels":[tag[j]]}
+                    length = length + len(word[j])
+                    dic_v["id"]=word[j]+str(id[j])+str(pos)
+                    dic_v["from_name"] = "lbl-"+str(pos)
+                    dic_v["to_name"] = "txt-"+str(pos)
+                    dic_v["type"] = "labels"
+                    value_sen.append(dic_v)
+
+                for j in range(len(id)):
+                    if j>0:
+                        dic_rel = {}
+                        dic_rel["from_id"]=word[j]+str(id[j])+str(pos)
+                        dic_rel["to_id"]=word[head[j]]+str(head[j])+str(pos)
+                        dic_rel["type"]= "relation"
+                        dic_rel["direction"]="right"
+                        dic_rel["labels"] =[dep[j]]
+                        #dic_rel["labels"] =[]
+                        #print(dep[j])
+                        value_sen.append(dic_rel)
+
+                # file = str(k)+str(i)+'.svg'
+                # output_path = path +'/'+file
+                # sen_list.append(output_path)
+                pos = pos + 1
+            #print(sen[k].sen)
+            #sen2spacy[sen[k].sen] = sen_list
+            if value_sen != []:
+                values.append(value_sen)
+                pre_dic["predictions"].append({'result':value_sen})
+                tasks.append(pre_dic) 
+    #data_json['data'] = values
+    json_s = json.dumps(tasks,ensure_ascii=False)
+    #json_s = json.dumps(tasks)
+    with open('dependency_tree\\zuixin.json', 'w',encoding='utf-8') as json_file:
+        json_file.write(json_s)
+    return json_s
 
 ##下面这个是测试的代码，只生成单个句子的dptree
 # def generate_DPtree_spacy(sen,st,dic,path):

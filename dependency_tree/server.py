@@ -1,7 +1,10 @@
 # Import the SDK and the client module
+import json
+from django import conf
 from label_studio_sdk import Client
 import model
 import tools
+import os
 
 def ServerLaunch(url,api):
     # Define the URL where Label Studio is accessible and the API key for your user account
@@ -9,67 +12,79 @@ def ServerLaunch(url,api):
     API_KEY = api
     # Connect to the Label Studio API and check the connection
     ls = Client(url=LABEL_STUDIO_URL, api_key=API_KEY)
+    #ls.make_request()
     ls.check_connection()
     print("succeed")
     return ls
 
 #我们这里的标签是
-def create_proj(ls,sen,dic):
-    #创建项目
-    #数据集的格式一个字一个标签，我们现在要传入的是一句话，然后把他所有图片当作数据传入进来
-    #我知道了创建一个json数据 用句子的名字作为字典的键，图片的值作为字典的值
-    #<image name ='ima' value="im" valuetype="url">
+def create_proj(ls,sen,tasks,n):
+    
+    # 'SP', 'VE', 'IJ', 'SB', 'DEG', 'BA', 'DT', 'JJ', 'OD', 'AS', 'PN', 'DEV', 'CS', 'NT', 'CD',
+    #  'VA', 'ETC', 'NR', 'DEC', 'DER', 'NN', 'LB', 'PUNCT', 'P', 'MSP', 'CC', 'M', 'VVN', 'LC', 'VC', 'AD', 'ON', 'VV'
+    label_ralation = """<Relations>
+                <Relation value="root" /><Relation value="dfsubj" /><Relation value="adv" /><Relation value="de" /><Relation value="sasubj-obj" />
+                <Relation value="app" /><Relation value="att" /><Relation value="pred" /><Relation value="subj" /><Relation value="sasubj" />
+                <Relation value="punc" /><Relation value="pobj" /><Relation value="cmp" /><Relation value="obj" /><Relation value="iobj" />
+                <Relation value="repet" /><Relation value="adjct" /><Relation value="coo" /><Relation value="subj-in" />
+            </Relations>"""
+    label_tags="""<Label value="SP" /><Label value="VE" /><Label value="IJ" /><Label value="SB" /><Label value="DEG" /><Label value="BA" />
+                <Label value="DT" /><Label value="JJ" /><Label value="OD" /><Label value="AS" /><Label value="PN" /><Label value="DEV" />
+                <Label value="CS" /><Label value="NT" /><Label value="CD" /><Label value="VA" /><Label value="ETC" /><Label value="NR" />
+                <Label value="DEC" /><Label value="DER" /><Label value="NN" /><Label value="LB" /><Label value="PUNCT" /><Label value="P" />
+                <Label value="MSP" /><Label value="CC" /><Label value="M" /><Label value="VVN" /><Label value="LC" /><Label value="AD" />
+                <Label value="ON" /><Label value="VV" /><Label value="PU" /><Label value="VC" />"""
+    label_Labels=""
+    for i in range(n):
+        label_Labels = label_Labels+"""<Header size="6" value=\""""+str(i+1)+""":" />""" """<Text name=\"txt-"""+str(i+1)+"""\" value="$text" />"""
+        label_Labels = label_Labels+"""<Labels name=\"lbl-"""+str(i+1)+"""\" toName=\"txt-"""+str(i+1)+"""\">"""
+        label_Labels = label_Labels+label_tags
+        label_Labels = label_Labels+"</Labels>"
+    label_choic="""  <Header value="Select The right Dependency:" />
+<Choices name="selection" toName="txt-1" required="true" choice="single">"""
+    for i in range(n):
+        label_choic = label_choic +"<Choice value=\""+str(i+1)+":"+"$text"+"\"/>"
+    label_choic = label_choic + "</Choices>"
+    
+    # <Header value="Select True Dependency Tree" />
+    l_c =""" <View>"""+label_choic+label_ralation+label_Labels+"""</View>"""
     project = ls.start_project(
-        title='Adonis111',
-        label_config='''
-        <View>
-            <Header value="Select the best Dependency Tree" />
-            <image name="tex" value="$im" />
-            <Choices name="tag" toName="tex" >
-                <Choice value="1"></Choice>
-                <Choice value="2"></Choice>
-                <Choice value="3"></Choice>
-                <Choice value="4"></Choice>
-                <Choice value="5"></Choice>
-                <Choice value="6"></Choice>
-                <Choice value="7"></Choice>
-                <Choice value="8"></Choice>
-            </Choices>
-        </View>
-        '''
+        title='Adonis',
+        label_config=l_c
     )
     #convert to dic
-    #现在存在的问题是我们的句子是重复的，我们需要把这些句子提取出来，然后只展示不重复的句子
     #{'ids':i,'sen': sen[i].sen,'im':dic[sen[i].sen]},
     se = set()
-    for i in range(len(sen[27:28])):
-        #我们需要判断这个句子是否出现过
-        if sen[i].sen not in se:
-            se.add(sen[i].sen)
-            project.import_tasks(
-                [{
-                    "data":{'ids':i,'sen': sen[i].sen,'im':dic[sen[i].sen]},}
-                ]
-            )
-            
-            
-        else:
-            continue
+    project.import_tasks("dependency_tree\\zuixin.json")
+   
 if __name__ == '__main__':
-    LABEL_STUDIO_URL = 'http://localhost:8080'
-    API_KEY = '72deb692101d5d12d3388a76580c10b730e864b0'
-    
-    file_path = "E:/baiduyunxiazai/zx/"
-    fila_name = "notMatch.alldata"
-    out_path = "dependency_tree/output_image"
+    # LABEL_STUDIO_URL = 'http://localhost:8080'
+    # #API_KEY = '72deb692101d5d12d3388a76580c10b730e864b0'
+    # API_KEY ='83443f95363aaaa600059c7c41db23164d04eb58'
+    # file_path = "E:/baiduyunxiazai/zx/"
+    # fila_name = "notMatch.alldata"
+    # out_path = "dependency_tree\\output_image"
+    with open('dependency_tree\\config.json','r',encoding='gbk')as fp:
+            config=json.load(fp)
+    print(config)
+    LABEL_STUDIO_URL = config['LABEL_STUDIO_URL']
+    #API_KEY = '72deb692101d5d12d3388a76580c10b730e864b0'
+    API_KEY = config['API_KEY']
+    file_path = config['file_path']
+    fila_name = config['fila_name']
+    out_path = config['out_path']
+    num = config['n']
     dataset = []
     data = model.Conll_8best_Read(dataset)
     dataset = data.read_mul_file(file_path,fila_name)
     sen = tools.load_data_conll(dataset)
     se,dic = tools.find_sent(sen)
-    #现在我们已经有了每个句子的网络地址了 下面就需要把这些地址显示到选项中
-    sen2spacy = tools.generate_DPtree_spacy(sen,dic,out_path)
+    # os.popen("conda activate pytorch")
+    # #os.system("label-studio start")
+    # s=os.popen("label-studio start")
+    #tasks = tools.generate_DPtree_spacy(sen,dic,out_path)
+    tasks = tools.generate_DPtree_ls(sen,dic,out_path)
     ls = ServerLaunch(LABEL_STUDIO_URL,API_KEY)
-    create_proj(ls,sen,sen2spacy)
+    create_proj(ls,sen,tasks,num)
 
     

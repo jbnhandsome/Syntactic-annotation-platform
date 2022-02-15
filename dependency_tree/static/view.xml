@@ -1,0 +1,55 @@
+<View>
+            <Relations>
+                <Relation value="root" background="red"/><Relation value="dfsubj" /><Relation value="adv" /><Relation value="de" /><Relation value="sasubj-obj" />
+                <Relation value="app" /><Relation value="att" /><Relation value="pred" /><Relation value="subj" /><Relation value="sasubj" />
+                <Relation value="punc" /><Relation value="pobj" /><Relation value="cmp" /><Relation value="obj" /><Relation value="iobj" />
+                <Relation value="repet" /><Relation value="adjct" /><Relation value="coo" /><Relation value="subj-in" />
+            </Relations>
+
+            <Text name="txt-1" value="$text" />
+            <Labels name="lbl-1" toName="txt-1">
+                <Label value="SP" /><Label value="VE" /><Label value="IJ" /><Label value="SB" /><Label value="DEG" /><Label value="BA" />
+                <Label value="DT" /><Label value="JJ" /><Label value="OD" /><Label value="AS" /><Label value="PN" /><Label value="DEV" />
+                <Label value="CS" /><Label value="NT" /><Label value="CD" /><Label value="VA" /><Label value="ETC" /><Label value="NR" />
+                <Label value="DEC" /><Label value="DER" /><Label value="NN" /><Label value="LB" /><Label value="PUNCT" /><Label value="P" />
+                <Label value="MSP" /><Label value="CC" /><Label value="M" /><Label value="VVN" /><Label value="LC" /><Label value="AD" />
+                <Label value="ON" /><Label value="VV" /><Label value="PU" /><Label value="VC" />
+            </Labels>
+            <Text name="txt-2" value="$text" />
+            <Labels name="lbl-2" toName="txt-2">
+                <Label value="SP" /><Label value="VE" /><Label value="IJ" /><Label value="SB" /><Label value="DEG" /><Label value="BA" />
+                <Label value="DT" /><Label value="JJ" /><Label value="OD" /><Label value="AS" /><Label value="PN" /><Label value="DEV" />
+                <Label value="CS" /><Label value="NT" /><Label value="CD" /><Label value="VA" /><Label value="ETC" /><Label value="NR" />
+                <Label value="DEC" /><Label value="DER" /><Label value="NN" /><Label value="LB" /><Label value="PUNCT" /><Label value="P" />
+                <Label value="MSP" /><Label value="CC" /><Label value="M" /><Label value="VVN" /><Label value="LC" /><Label value="AD" />
+                <Label value="ON" /><Label value="VV" /><Label value="PU" /><Label value="VC" />
+            </Labels>
+            <Text name="txt-3" value="$text" />
+            <Labels name="lbl-3" toName="txt-3">
+                <Label value="SP" /><Label value="VE" /><Label value="IJ" /><Label value="SB" /><Label value="DEG" /><Label value="BA" />
+                <Label value="DT" /><Label value="JJ" /><Label value="OD" /><Label value="AS" /><Label value="PN" /><Label value="DEV" />
+                <Label value="CS" /><Label value="NT" /><Label value="CD" /><Label value="VA" /><Label value="ETC" /><Label value="NR" />
+                <Label value="DEC" /><Label value="DER" /><Label value="NN" /><Label value="LB" /><Label value="PUNCT" /><Label value="P" />
+                <Label value="MSP" /><Label value="CC" /><Label value="M" /><Label value="VVN" /><Label value="LC" /><Label value="AD" />
+                <Label value="ON" /><Label value="VV" /><Label value="PU" /><Label value="VC" />
+            </Labels>
+            <Text name="txt-4" value="$text" />
+            <Labels name="lbl-4" toName="txt-4">
+                <Label value="SP" /><Label value="VE" /><Label value="IJ" /><Label value="SB" /><Label value="DEG" /><Label value="BA" />
+                <Label value="DT" /><Label value="JJ" /><Label value="OD" /><Label value="AS" /><Label value="PN" /><Label value="DEV" />
+                <Label value="CS" /><Label value="NT" /><Label value="CD" /><Label value="VA" /><Label value="ETC" /><Label value="NR" />
+                <Label value="DEC" /><Label value="DER" /><Label value="NN" /><Label value="LB" /><Label value="PUNCT" /><Label value="P" />
+                <Label value="MSP" /><Label value="CC" /><Label value="M" /><Label value="VVN" /><Label value="LC" /><Label value="AD" />
+                <Label value="ON" /><Label value="VV" /><Label value="PU" /><Label value="VC" />
+            </Labels>
+            <Text name="txt-5" value="$text" />
+            <Labels name="lbl-5" toName="txt-5">
+                <Label value="SP" /><Label value="VE" /><Label value="IJ" /><Label value="SB" /><Label value="DEG" /><Label value="BA" />
+                <Label value="DT" /><Label value="JJ" /><Label value="OD" /><Label value="AS" /><Label value="PN" /><Label value="DEV" />
+                <Label value="CS" /><Label value="NT" /><Label value="CD" /><Label value="VA" /><Label value="ETC" /><Label value="NR" />
+                <Label value="DEC" /><Label value="DER" /><Label value="NN" /><Label value="LB" /><Label value="PUNCT" /><Label value="P" />
+                <Label value="MSP" /><Label value="CC" /><Label value="M" /><Label value="VVN" /><Label value="LC" /><Label value="AD" />
+                <Label value="ON" /><Label value="VV" /><Label value="PU" /><Label value="VC" />
+            </Labels>
+            
+    </View>
